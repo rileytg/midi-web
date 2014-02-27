@@ -10,6 +10,7 @@ $(document).ready(function() {
   });
 
   socket.on('server_message', function(data){
-   $('#receiver').append('<li>' + data + '</li>');  
+   $('#receiver').append('<li>' + data + '</li>');
+      if(window.console) console.log("14:> " , data);
   });
 });

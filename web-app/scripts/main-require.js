@@ -13,6 +13,7 @@ require.config({
     paths: {
         jquery: '../bower_components/jquery/jquery.min',
         underscore: '../bower_components/underscore/underscore',
+        knockout: '../bower_components/knockout/build/output/knockout-latest',
         socketio: '//0.0.0.0:8081/socket.io/socket.io',
         midiApp: 'midiApp'
     }

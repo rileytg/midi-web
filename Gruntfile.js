@@ -183,13 +183,14 @@ module.exports = function (grunt) {
             }
         },
 
-        // Automatically inject Bower components into the HTML file
-        'bower-install': {
-            app: {
-                html: '<%= yeoman.app %>/index.html',
-                ignorePath: '<%= yeoman.app %>/'
-            }
-        },
+// Disabled because of requirejs
+//        // Automatically inject Bower components into the HTML file
+//        'bower-install': {
+//            app: {
+//                html: '<%= yeoman.app %>/index.html',
+//                ignorePath: '<%= yeoman.app %>/'
+//            }
+//        },
 
         // Renames files for browser caching purposes
         rev: {

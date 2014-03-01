@@ -1,16 +1,27 @@
 /* Author: YOUR NAME HERE
-*/
+ */
 
-$(document).ready(function() {   
+$(document).ready(function () {
 
-  var socket = io.connect();
+    var commas = function (data, optionalModifier) {
+        var modifier = optionalModifier || 0
+        return  (data[0] + modifier)
+                + ',' + (data[1] + modifier)
+                + ',' + (data[2] + modifier)
+    }
 
-  $('#sender').bind('click', function() {
-   socket.emit('message', 'Message Sent on ' + new Date());     
-  });
+    var socket = io.connect();
 
-  socket.on('server_message', function(data){
-   $('#receiver').append('<li>' + data + '</li>');
-      if(window.console) console.log("14:> " , data);
-  });
+    $('#js-bind-key').bind('click', function () {
+        var keyName = $('#js-key-name').val()
+        socket.emit('keyName', keyName);
+    });
+
+    socket.on('messagesToUser', function (data) {
+//        var formatedData = commas(data, 70)
+        $('h1').text(data);
+//        $('body').css({
+//            'background-color': 'rgb(' + formatedData + ')'
+//        })
+    });
 });

@@ -4,7 +4,7 @@
 //if IE 7
   html.no-js.ie7.oldie(lang='en')
 //if IE 8
-  html.no-js.ie8.oldie(lang='en') 
+  html.no-js.ie8.oldie(lang='en')
 //[if gt IE 8]><!
 html.no-js(lang='en')
   //<![end if]
@@ -28,8 +28,11 @@ html.no-js(lang='en')
         script
           window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\\/script>')
         //-script(defer, src='js/plugins.js')
-        script(defer, src='/js/script.js')
+        script(defer, src='/js/stats.min.js')
+        script(defer, src='/js/three.min.js')
+        script(defer, src='http://knockoutjs.com/downloads/knockout-3.0.0.js')
         script(defer, src='/socket.io/socket.io.js')
+        script(defer, src='/js/script.js')
           script
             var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview'],['_trackPageLoadTime']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;

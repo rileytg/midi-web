@@ -2,6 +2,7 @@
 var connect = require('connect')
         , express = require('express')
         , io = require('socket.io')
+        , keyFactory = require('./lib/keyFactory')
         , port = (process.env.PORT || 8081);
 
 //Setup Express
@@ -33,11 +34,23 @@ server.listen(port);
 //Setup Socket.IO
 var io = io.listen(server);
 io.sockets.on('connection', function (socket) {
-    console.log('Client Connected');
 
-    socket.on('message', function (data) {
-        socket.broadcast.emit('server_message', data);
-        socket.emit('server_message', data);
+    var messageToUser = function (message) {
+        socket.emit('messagesToUser', message)
+    }
+    var keyRegister = keyFactory(messageToUser)
+
+    console.log('Client Connected');
+//    io.broadcast.emit('bingo', {});
+//    io.emit('bingo', {});
+
+
+    socket.on('keyName', function (keyName) {
+        console.log('received: ', keyName)
+        keyRegister.addKey(keyName)
+
+//        socket.broadcast.emit('server_message', data, " added");
+//        socket.emit('server_message', data);
     });
     socket.on('disconnect', function () {
         console.log('Client Disconnected.');

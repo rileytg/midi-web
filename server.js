@@ -2,7 +2,7 @@
 var connect = require('connect')
         , express = require('express')
         , io = require('socket.io')
-        , keyFactory = require('./lib/keyFactory')
+        , keyFactory = require('./lib/midiKeySet')
         , port = (process.env.PORT || 8081);
 
 //Setup Express
@@ -48,10 +48,14 @@ io.sockets.on('connection', function (socket) {
     socket.on('keyName', function (keyName) {
         console.log('received: ', keyName)
         keyRegister.addKey(keyName)
-
-//        socket.broadcast.emit('server_message', data, " added");
-//        socket.emit('server_message', data);
     });
+
+    socket.on('getKeys', function () {
+        keyRegister.keys(function (keys) {
+            socket.emit('keys', keys);
+        })
+    });
+
     socket.on('disconnect', function () {
         console.log('Client Disconnected.');
     });

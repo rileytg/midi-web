@@ -15,13 +15,19 @@ $(document).ready(function () {
     $('#js-bind-key').bind('click', function () {
         var keyName = $('#js-key-name').val()
         socket.emit('keyName', keyName);
+        socket.emit('getKeys', {});
     });
 
     socket.on('messagesToUser', function (data) {
-//        var formatedData = commas(data, 70)
         $('h1').text(data);
-//        $('body').css({
-//            'background-color': 'rgb(' + formatedData + ')'
-//        })
+    });
+
+    socket.on('keys', function (keys) {
+        if(window.console) console.log("25:> " , keys);
+        for(var key in keys) {
+            var keyInLi = $('li').text(key)
+            $('ul').append(keyInLi);
+
+        }
     });
 });

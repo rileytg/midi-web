@@ -24,10 +24,6 @@ $(document).ready(function () {
 
     socket.on('keys', function (keys) {
         if(window.console) console.log("25:> " , keys);
-        for(var key in keys) {
-            var keyInLi = $('li').text(key)
-            $('ul').append(keyInLi);
 
-        }
     });
 });

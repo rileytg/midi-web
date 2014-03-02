@@ -12,13 +12,13 @@ define([
 
         this.getKeys = function () {
             socket.emit('getKeys', {})
-            socket.on('keys', function (keys) {
-                MidiKeyListViewModel.allKeys.removeAll()
-                _(keys).each(function (key) {
-                    MidiKeyListViewModel.allKeys.push(new MidiKeyViewModel(socket, key))
-                })
-            })
         }
+        socket.on('keys', function (keys) {
+            MidiKeyListViewModel.allKeys.removeAll()
+            _(keys).each(function (key) {
+                MidiKeyListViewModel.allKeys.push(new MidiKeyViewModel(socket, key))
+            })
+        })
 
         this.getKeys()
 
@@ -31,7 +31,13 @@ define([
             this.newKeyName(""); // Clear the text box
         }
         socket.on('keyAdded', function (key) {
-            MidiKeyListViewModel.allKeys.push(new MidiKeyListViewModel(socket, key))
+            MidiKeyListViewModel.allKeys.push(new MidiKeyViewModel(socket, key))
+        })
+        socket.on('keyRemoved', function (id) {
+            if(window.console) console.log("37:> " , id);
+            MidiKeyListViewModel.allKeys.remove(
+                _(MidiKeyListViewModel.allKeys()).where({_id: id})[0]
+            );
         })
 
         this.removeAllKeys = function () {

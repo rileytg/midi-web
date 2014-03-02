@@ -62,10 +62,14 @@ module.exports = function (userFlash) {
             })
         },
         removeAllKeys: function (callback) {
-
             MidiInput.remove().exec()
-            MidiInput.find(function (err, midiInputs) {
-                callback(midiInputs)
+            this.keys(callback)
+        },
+        removeKey: function (id, callback) {
+            MidiInput.remove({_id: id}, function (err) {
+                if (err)
+                    console.log(err)
+                callback()
             })
         }
     };

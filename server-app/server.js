@@ -64,6 +64,11 @@ io.sockets.on('connection', function (socket) {
             socket.emit('keys', keys);
         })
     });
+    socket.on('removeKey', function (id) {
+        midiKeySet.removeKey(id, function () {
+            socket.emit('keyRemoved', id);
+        })
+    });
 
     socket.on('disconnect', function () {
         console.log('Client Disconnected.');

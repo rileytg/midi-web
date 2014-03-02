@@ -17,7 +17,8 @@ require.config({
         socketio: '//0.0.0.0:8081/socket.io/socket.io',
         midiApp: 'midiApp',
         MidiKeyListViewModel: 'viewmodels/MidiKeyListViewModel',
-        MidiKeyViewModel: 'viewmodels/MidiKeyViewModel'
+        MidiKeyViewModel: 'viewmodels/MidiKeyViewModel',
+        MidiKeyFormViewModel: 'viewmodels/MidiKeyFormViewModel'
     }
 });
 

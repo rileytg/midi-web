@@ -3,8 +3,9 @@ define([
     'underscore',
     'socketio',
     'knockout',
-    'MidiKeyListViewModel'
-], function ($, _, io, ko, MidiKeyListViewModel) {
+    'MidiKeyListViewModel',
+    'MidiKeyFormViewModel'
+], function ($, _, io, ko, MidiKeyListViewModel, MidiKeyFormViewModel) {
     'use strict';
 
     var socket = io.connect('http://0.0.0.0:8081')
@@ -16,7 +17,7 @@ define([
 
         model.flashMessage = ko.observable("Loading...")
         model.midiKeyList = ko.observable(new MidiKeyListViewModel(socket))
-
+        model.midiKeyForm = ko.observable(new MidiKeyFormViewModel(socket))
 
         socket.on('messagesToUser', function (data) {
             model.flashMessage(data)

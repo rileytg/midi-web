@@ -18,19 +18,22 @@ require.config({
         midiApp: 'midiApp',
         MidiKeyListViewModel: 'viewmodels/MidiKeyListViewModel',
         MidiKeyViewModel: 'viewmodels/MidiKeyViewModel',
-        MidiKeyFormViewModel: 'viewmodels/MidiKeyFormViewModel'
+        MidiKeyFormViewModel: 'viewmodels/MidiKeyFormViewModel',
+        bouncie: 'bouncie'
     }
 });
 
 
 define([
     'jquery',
-    'midiApp'
+    'midiApp',
+    'bouncie'
 ], function ($, midiApp) {
 
     $(document).ready(function () {
         var socket = io.connect('http://0.0.0.0:8081')
         midiApp.start(socket)
+
     })
 
 });

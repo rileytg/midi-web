@@ -2,11 +2,14 @@ define([
     'underscore',
     'knockout',
     'jquery',
+    'bouncie',
     'MidiKeyViewModel'
-], function (_, ko, $, MidiKeyViewModel) {
+], function (_, ko, $, bouncie, MidiKeyViewModel) {
     'use strict';
     return function (socket) {
         var MidiKeyListViewModel = this
+
+        var b = bouncie("#f0f")
 
         MidiKeyListViewModel.allKeys = ko.observableArray([]) // Initial items starts empty
 
@@ -22,7 +25,9 @@ define([
 
         socket.on('keyPressed', function (id) {
             var key = _(MidiKeyListViewModel.allKeys()).where({_id: id})[0]
-            $('body').css('background-color', key.color())
+            $('body').css('background-color', b.color())
+            b.color(key.color())
+            b.bounce()
         })
 
 

@@ -10,7 +10,8 @@ var Schema = mongoose.Schema
 var midiInputSchema = new Schema({
     name: String,
     identifier: String,
-    value: Number
+    value: Number,
+    color: String
 })
 var MidiInput = mongoose.model('MidiInput', midiInputSchema);
 
@@ -85,6 +86,18 @@ module.exports = function (userFlash, socket) {
             MidiInput.remove({_id: id}, function (err) {
                 if (err)
                     console.log(err)
+                callback()
+            })
+        },
+        updateKey: function (unitOfWork, callback) {
+            var attributeUpdate = {}
+            var attributeToUpdate = unitOfWork.attribute
+            attributeUpdate[attributeToUpdate] = unitOfWork.newValue
+
+            MidiInput.update({_id: unitOfWork.id}, attributeUpdate, function (err, numberAffected) {
+                if (err || numberAffected < 1)
+                    console.log(err)
+
                 callback()
             })
         }

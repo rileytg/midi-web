@@ -70,6 +70,13 @@ io.sockets.on('connection', function (socket) {
         })
     });
 
+    socket.on('keyUpdated', function (unitOfWork) {
+        console.log(unitOfWork)
+        midiKeySet.updateKey(unitOfWork, function () {
+            socket.emit('keyUpdated');
+        })
+    });
+
     socket.on('disconnect', function () {
         console.log('Client Disconnected.');
     });

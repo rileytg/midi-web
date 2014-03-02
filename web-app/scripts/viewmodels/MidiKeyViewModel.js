@@ -10,7 +10,19 @@ define([
         this.identifier = key.identifier
         this.active = ko.observable(false)
 
-        this.color = ko.observable("#00000")
+        var persistedObservable = function (value, viewModel, attributeName) {
+            var observable = ko.observable(value)
+
+            observable.subscribe(function(newValue) {
+                socket.emit('keyUpdated', {
+                    id: viewModel._id,
+                    attribute: attributeName,
+                    newValue: newValue
+                })
+            })
+            return observable
+        }
+        this.color = persistedObservable(key.color, this, 'color')
 
         this.toggleActive = function (key, event) {
             var $currentTarget = $(event.currentTarget)

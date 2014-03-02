@@ -29,7 +29,7 @@ define([
         this.getKeys()
 
         socket.on('keyAdded', function (key) {
-            MidiKeyListViewModel.allKeys.push(new MidiKeyViewModel(socket, key))
+            MidiKeyListViewModel.allKeys.splice(0, 0, new MidiKeyViewModel(socket, key))
         })
         socket.on('keyRemoved', function (id) {
             MidiKeyListViewModel.allKeys.remove(

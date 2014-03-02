@@ -34,7 +34,6 @@ define([
             MidiKeyListViewModel.allKeys.push(new MidiKeyViewModel(socket, key))
         })
         socket.on('keyRemoved', function (id) {
-            if(window.console) console.log("37:> " , id);
             MidiKeyListViewModel.allKeys.remove(
                 _(MidiKeyListViewModel.allKeys()).where({_id: id})[0]
             );

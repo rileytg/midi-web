@@ -2,7 +2,7 @@
 var connect = require('connect')
         , express = require('express')
         , io = require('socket.io')
-        , midiKeySetFactory = require('./lib/midiKeySet')
+        , midiKeySetFactory = require('./lib/midiKeySetFactory')
         , port = (process.env.PORT || 8081);
 
 //Setup Express

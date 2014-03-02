@@ -32,7 +32,7 @@ server.error(function (err, req, res, next) {
 server.listen(port);
 
 //Setup Socket.IO
-var io = io.listen(server);
+io = io.listen(server);
 io.sockets.on('connection', function (socket) {
 
     var messageToUser = function (message) {

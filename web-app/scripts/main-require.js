@@ -15,7 +15,9 @@ require.config({
         underscore: '../bower_components/underscore/underscore',
         knockout: '../bower_components/knockout/build/output/knockout-latest',
         socketio: '//0.0.0.0:8081/socket.io/socket.io',
-        midiApp: 'midiApp'
+        midiApp: 'midiApp',
+        MidiKeyListViewModel: 'viewmodels/MidiKeyListViewModel',
+        MidiKeyViewModel: 'viewmodels/MidiKeyViewModel'
     }
 });
 

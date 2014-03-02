@@ -38,13 +38,16 @@
     <div class="col-md-3" data-bind="with: midiKeyList">
       <div style="padding: 20px">
 
-        <form data-bind="submit: setupKey">
-          Add key: <input type="text"
-                          data-bind='value:newKeyName, valueUpdate: "afterkeydown"'/>
-          <button type="submit" data-bind="enable: newKeyName().length > 0">
+        <form role="form" data-bind="submit: setupKey">
+          <label>Add key: <input type="text"
+                                 data-bind='value:newKeyName, valueUpdate: "afterkeydown"'/>
+          </label>
+          <button type="submit" data-bind="enable: newKeyName().length > 0"
+                  class="btn">
             Add
           </button>
-          <button type="button" data-bind="click: removeAllKeys">Clear All
+          <button type="button" data-bind="click: removeAllKeys" class="btn">
+            Clear All
           </button>
         </form>
 
@@ -52,7 +55,14 @@
         <p>Your keys:</p>
 
         <div class="list-group" data-bind="foreach: allKeys">
-          <a class="list-group-item" data-bind="text: name"></a>
+          <a class="list-group-item">
+            <h4 class="list-group-item-heading" data-bind="text: name"></h4>
+            <button type="button" class="btn btn-default btn-xs pull-right" data-bind="click: remove">
+              <span class="glyphicon glyphicon-trash"></span>
+            </button>
+            <div class="clearfix"></div>
+
+          </a>
         </div>
       </div>
 

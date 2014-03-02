@@ -62,7 +62,7 @@
         <p>Your keys:</p>
 
         <div class="list-group" data-bind="foreach: allKeys">
-          <a class="list-group-item">
+          <a class="list-group-item" data-bind="click: toggleActive">
             <h4 class="list-group-item-heading" data-bind="text: name"></h4>
 
             <p data-bind="text: identifier"></p>

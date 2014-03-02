@@ -60,6 +60,13 @@ module.exports = function (userFlash) {
             MidiInput.find(function (err, midiInputs) {
                 callback(midiInputs)
             })
+        },
+        removeAllKeys: function (callback) {
+
+            MidiInput.remove().exec()
+            MidiInput.find(function (err, midiInputs) {
+                callback(midiInputs)
+            })
         }
     };
 }

@@ -42,6 +42,12 @@ define([
             this.newKeyName(""); // Clear the text box
         }
 
+        this.removeAllKeys = function () {
+            if (confirm('Remove all midi keys?') && confirm('Remove all midi keys?????')) {
+                socket.emit('removeAllKeys')
+            }
+        }
+
         socket.on('keyAdded', function (key) {
             model.allKeys.push(key)
         })
@@ -50,7 +56,7 @@ define([
     var MidiAppViewModel = function () {
         var model = this
 
-        model.flashMessage = ko.observable("")
+        model.flashMessage = ko.observable("Loading...")
         model.midiKeyList = ko.observable(new MidiKeyListViewModel())
 
 

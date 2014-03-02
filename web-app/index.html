@@ -28,13 +28,15 @@
 
 
         <div class="container">
-            <h1 data-bind="text: flashMessage"></h1>
+            <h1 data-bind="text: flashMessage">Loading...</h1>
             <div class="row">
                 <div class="col-md-12" data-bind="with: midiKeyList">
                     <form data-bind="submit: setupKey">
                         Add key: <input type="text" data-bind='value:newKeyName, valueUpdate: "afterkeydown"' />
                         <button type="submit" data-bind="enable: newKeyName().length > 0">Add</button>
+                        <button type="button" data-bind="click: removeAllKeys">Clear All</button>
                     </form>
+
 
                     <p>Your keys:</p>
                     <ul data-bind="foreach: allKeys">

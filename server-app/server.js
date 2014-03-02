@@ -2,7 +2,7 @@
 var connect = require('connect')
         , express = require('express')
         , io = require('socket.io')
-        , keyFactory = require('./../lib/midiKeySet')
+        , midiKeySetFactory = require('./lib/midiKeySet')
         , port = (process.env.PORT || 8081);
 
 //Setup Express
@@ -38,7 +38,7 @@ io.sockets.on('connection', function (socket) {
     var messageToUser = function (message) {
         socket.emit('messagesToUser', message)
     }
-    var keyRegister = keyFactory(messageToUser)
+    var midiKeySet = midiKeySetFactory(messageToUser)
 
     console.log('Client Connected');
 //    io.broadcast.emit('bingo', {});
@@ -47,11 +47,11 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('keyName', function (keyName) {
         console.log('received: ', keyName)
-        keyRegister.addKey(keyName)
+        midiKeySet.addKey(keyName)
     });
 
     socket.on('getKeys', function () {
-        keyRegister.keys(function (keys) {
+        midiKeySet.keys(function (keys) {
             socket.emit('keys', keys);
         })
     });

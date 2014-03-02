@@ -27,11 +27,12 @@
         <![endif]-->
 
 
-        <div class="container">
-            <h1 data-bind="text: flashMessage">Loading...</h1>
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12" data-bind="with: midiKeyList">
-                    <form data-bind="submit: setupKey">
+                <div class="col-md-3" data-bind="with: midiKeyList">
+                  <div style="padding: 20px">
+
+                  <form data-bind="submit: setupKey">
                         Add key: <input type="text" data-bind='value:newKeyName, valueUpdate: "afterkeydown"' />
                         <button type="submit" data-bind="enable: newKeyName().length > 0">Add</button>
                         <button type="button" data-bind="click: removeAllKeys">Clear All</button>
@@ -39,10 +40,14 @@
 
 
                     <p>Your keys:</p>
-                    <ul data-bind="foreach: allKeys">
-                        <li data-bind="text: name"></li>
-                    </ul>
+                    <div class="list-group" data-bind="foreach: allKeys">
+                        <a class="list-group-item" data-bind="text: name"></a>
+                    </div>
+                  </div>
 
+                </div>
+                <div class="col-md-9">
+                  <h1 data-bind="text: flashMessage">Loading...</h1>
                 </div>
             </div>
         </div>

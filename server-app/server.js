@@ -38,7 +38,7 @@ io.sockets.on('connection', function (socket) {
     var messageToUser = function (message) {
         socket.emit('messagesToUser', message)
     }
-    var midiKeySet = midiKeySetFactory(messageToUser)
+    var midiKeySet = midiKeySetFactory(messageToUser, socket)
 
     console.log('Client Connected');
 //    io.broadcast.emit('bingo', {});

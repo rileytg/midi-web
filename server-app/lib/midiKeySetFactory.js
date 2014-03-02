@@ -9,7 +9,7 @@ var Schema = mongoose.Schema
 
 var midiInputSchema = new Schema({
     name: String,
-    identifier: [Number],
+    identifier: String,
     value: Number
 })
 var MidiInput = mongoose.model('MidiInput', midiInputSchema);
@@ -24,7 +24,7 @@ var _createInput = function () {
     return input
 }
 
-module.exports = function (userFlash) {
+module.exports = function (userFlash, socket) {
 
     var input = _createInput()
     userFlash("Loaded MIDI controller: " + input.getPortName(0))
@@ -38,13 +38,29 @@ module.exports = function (userFlash) {
     // Order: (Sysex, Timing, Active Sensing)
     input.ignoreTypes(false, false, false);
 
+    input.on('message', function (deltaTime, message) {
+        console.log("@@@@@@@ ", message)
+//        console.log(identifier)
+        var identifier = message.slice(0, 2).toString()
+        console.log("45:> " , identifier);
+        MidiInput.find({identifier: identifier}, function (err, items) {
+            if (err) {
+                console.log(err)
+            }
+            if (items && items[0]) {
+                socket.emit('keyPressed', items[0]._id)
+            }
+        })
+    })
+
     return {
         setupKey: function (name, callback) {
             userFlash("Press a key")
             input.once('message', function (deltaTime, message) {
+                console.log("!!!!!!!!!! ", message)
                 var midiInput = new MidiInput({
                     name: name,
-                    identifier: message.slice(0, 2),
+                    identifier: message.slice(0, 2).toString(),
                     value: message[2]
                 })
                 midiInput.save(function (err, input) {

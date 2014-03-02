@@ -1,8 +1,9 @@
 define([
     'underscore',
     'knockout',
+    'jquery',
     'MidiKeyViewModel'
-], function (_, ko, MidiKeyViewModel) {
+], function (_, ko, $, MidiKeyViewModel) {
     'use strict';
     return function (socket) {
         var MidiKeyListViewModel = this
@@ -18,6 +19,12 @@ define([
                 MidiKeyListViewModel.allKeys.push(new MidiKeyViewModel(socket, key))
             })
         })
+
+        socket.on('keyPressed', function (id) {
+            var key = _(MidiKeyListViewModel.allKeys()).where({_id: id})[0]
+            $('body').css('background-color', key.color())
+        })
+
 
         this.getKeys()
 

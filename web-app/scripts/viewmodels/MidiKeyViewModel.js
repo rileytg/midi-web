@@ -10,6 +10,8 @@ define([
         this.identifier = key.identifier
         this.active = ko.observable(false)
 
+        this.color = ko.observable("#00000")
+
         this.toggleActive = function (key, event) {
             var $currentTarget = $(event.currentTarget)
             $currentTarget.siblings('.active').removeClass('active')

@@ -16,11 +16,10 @@ define([
 
     var socket = io.connect('http://0.0.0.0:8081')
 
-    var MidiKeyListModel = function () {
+    var MidiKeyListViewModel = function () {
         var model = this
-        model.newKeyName = ko.observable("");
-        model.allKeys = ko.observableArray([]); // Initial items starts empty
-
+        model.newKeyName = ko.observable("")
+        model.allKeys = ko.observableArray([]) // Initial items starts empty
 
         this.getKeys = function () {
             socket.emit('getKeys', {})
@@ -48,11 +47,22 @@ define([
         })
     };
 
-    ko.applyBindings(new MidiKeyListModel());
+    var MidiAppViewModel = function () {
+        var model = this
 
-    socket.on('messagesToUser', function (data) {
-        $('h1').text(data)
-    })
+        model.flashMessage = ko.observable("")
+        model.midiKeyList = ko.observable(new MidiKeyListViewModel())
+
+
+        socket.on('messagesToUser', function (data) {
+            model.flashMessage(data)
+        })
+
+
+    }
+
+    ko.applyBindings(new MidiAppViewModel())
+
 
     return {
         start: function (socket) {

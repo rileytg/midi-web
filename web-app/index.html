@@ -28,19 +28,20 @@
 
 
         <div class="container">
-            <h1></h1>
-            <form data-bind="submit:setupKey">
-                Add key: <input type="text" data-bind='value:newKeyName, valueUpdate: "afterkeydown"' />
-                <button type="submit" data-bind="enable: newKeyName().length > 0">Add</button>
-            </form>
+            <h1 data-bind="text: flashMessage"></h1>
+            <div class="row">
+                <div class="col-md-12" data-bind="with: midiKeyList">
+                    <form data-bind="submit: setupKey">
+                        Add key: <input type="text" data-bind='value:newKeyName, valueUpdate: "afterkeydown"' />
+                        <button type="submit" data-bind="enable: newKeyName().length > 0">Add</button>
+                    </form>
 
-            <p>Your keys:</p>
-            <ul data-bind="foreach: allKeys">
-                <li data-bind="text: name"></li>
-            </ul>
+                    <p>Your keys:</p>
+                    <ul data-bind="foreach: allKeys">
+                        <li data-bind="text: name"></li>
+                    </ul>
 
-            <div>
-                <!--<button data-bind="click: sortItems, enable: allItems().length > 1">Sort</button>-->
+                </div>
             </div>
         </div>
 

@@ -14,55 +14,49 @@ define([
 //                ',' + (data[2] + modifier)
 //    }
 
+    var socket = io.connect('http://0.0.0.0:8081')
 
-    var BetterListModel = function () {
-        this.itemToAdd = ko.observable("");
-        this.allItems = ko.observableArray(["Fries", "Eggs Benedict", "Ham", "Cheese"]); // Initial items
-        this.selectedItems = ko.observableArray(["Ham"]);                                // Initial selection
+    var MidiKeyListModel = function () {
+        var model = this
+        model.newKeyName = ko.observable("");
+        model.allKeys = ko.observableArray([]); // Initial items starts empty
 
-        this.addItem = function () {
-            if ((this.itemToAdd() != "") && (this.allItems.indexOf(this.itemToAdd()) < 0)) // Prevent blanks and duplicates
-                this.allItems.push(this.itemToAdd());
-            this.itemToAdd(""); // Clear the text box
-        };
 
-        this.removeSelected = function () {
-            this.allItems.removeAll(this.selectedItems());
-            this.selectedItems([]); // Clear selection
-        };
+        this.getKeys = function () {
+            socket.emit('getKeys', {})
+            socket.on('keys', function (keys) {
+                model.allKeys.removeAll()
+                _(keys).each(function (key) {
+                    model.allKeys.push(key)
+                })
+            })
+        }
 
-        this.sortItems = function () {
-            this.allItems.sort();
-        };
+        this.getKeys()
+
+        this.setupKey = function () {
+            var newKeyName = this.newKeyName()
+            if (newKeyName != "") { // todo Prevent duplicates
+                socket.emit('setupKey', newKeyName)
+                // todo: loading state...
+            }
+            this.newKeyName(""); // Clear the text box
+        }
+
+        socket.on('keyAdded', function (key) {
+            model.allKeys.push(key)
+        })
     };
 
-    ko.applyBindings(new BetterListModel());
-
-    var socket = io.connect()
-
-    function addKey() {
-        var keyName = $('#js-key-name').val()
-        socket.emit('keyName', keyName)
-    }
-
-//    $('#js-bind-key').bind('click', addKey)
-    $('#js-bind-key-form').bind('submit', addKey)
-    socket.emit('getKeys', {})
+    ko.applyBindings(new MidiKeyListModel());
 
     socket.on('messagesToUser', function (data) {
         $('h1').text(data)
     })
 
-    socket.on('keys', function (keys) {
-        if (window.console) {
-            console.log('25:> ', keys)
-        }
-
-    })
-
     return {
         start: function (socket) {
-            console.log(socket);
+
         }
     }
 

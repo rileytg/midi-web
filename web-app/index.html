@@ -28,23 +28,20 @@
 
 
         <div class="container">
-          <form id="js-bind-key-form">
-            <input type="text" id="js-key-name"/>
-            <button type="submit" class="btn btn-primary" id="js-bind-key">Add</button>
-          </form>
-        </div>
+            <h1></h1>
+            <form data-bind="submit:setupKey">
+                Add key: <input type="text" data-bind='value:newKeyName, valueUpdate: "afterkeydown"' />
+                <button type="submit" data-bind="enable: newKeyName().length > 0">Add</button>
+            </form>
 
-        <form data-bind="submit:addItem">
-            Add item: <input type="text" data-bind='value:itemToAdd, valueUpdate: "afterkeydown"' />
-            <button type="submit" data-bind="enable: itemToAdd().length > 0">Add</button>
-        </form>
+            <p>Your keys:</p>
+            <ul data-bind="foreach: allKeys">
+                <li data-bind="text: name"></li>
+            </ul>
 
-        <p>Your values:</p>
-        <select multiple="multiple" height="5" data-bind="options:allItems, selectedOptions:selectedItems"> </select>
-
-        <div>
-            <button data-bind="click: removeSelected, enable: selectedItems().length > 0">Remove</button>
-            <button data-bind="click: sortItems, enable: allItems().length > 1">Sort</button>
+            <div>
+                <!--<button data-bind="click: sortItems, enable: allItems().length > 1">Sort</button>-->
+            </div>
         </div>
 
 

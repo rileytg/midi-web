@@ -39,7 +39,7 @@ module.exports = function (userFlash) {
     input.ignoreTypes(false, false, false);
 
     return {
-        addKey: function (name) {
+        setupKey: function (name, callback) {
             userFlash("Press a key")
             input.once('message', function (deltaTime, message) {
                 var midiInput = new MidiInput({
@@ -52,13 +52,13 @@ module.exports = function (userFlash) {
                         console.log(err)
                         userFlash('Error saving' + util.inspect(err) + util.inspect(midiInput))
                     }
-                    userFlash('Saved ' +  util.inspect(midiInput) + ' successfully.')
+                    callback(midiInput)
                 })
             });
         },
         keys: function (callback) {
             MidiInput.find(function (err, midiInputs) {
-                callback(util.inspect(midiInputs))
+                callback(midiInputs)
             })
         }
     };

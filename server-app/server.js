@@ -45,9 +45,12 @@ io.sockets.on('connection', function (socket) {
 //    io.emit('bingo', {});
 
 
-    socket.on('keyName', function (keyName) {
+    socket.on('setupKey', function (keyName) {
         console.log('received: ', keyName)
-        midiKeySet.addKey(keyName)
+        midiKeySet.setupKey(keyName, function (key) {
+            messageToUser('Saved ' +  key.name + ' as ' + key.identifier + ' successfully.')
+            socket.emit('keyAdded', key)
+        })
     });
 
     socket.on('getKeys', function () {
